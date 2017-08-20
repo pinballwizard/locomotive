@@ -55,7 +55,7 @@
                 <form action="{% url 'submit' %}" method="post">
                     <div class="form-group">
                         {% csrf_token %}
-                        <h4>Выберите года</h4>
+                        <h4>Выберите период</h4>
                         <span>C</span>
                         <select class="form-control select" name="year_start">
                             {% for year in years %}
