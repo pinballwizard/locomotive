@@ -3,7 +3,7 @@
 
 ## Установка и запуск ##
 
-pip3 install Django, xlrd, pandas
+pip3 install Django, xlrd, pandas, numpy
 
 git clone https://github.com/pinballwizard/locomotive
 
