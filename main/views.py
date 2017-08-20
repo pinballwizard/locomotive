@@ -1,10 +1,11 @@
 from django.shortcuts import render, HttpResponse, redirect, Http404
 from django.views.decorators.csrf import csrf_exempt
 from main.models import Branch, Locomotive, Mileage
+from django.db.models import Count, Min, Sum, Avg
 from main.forms import SelectForm
 import pandas
 import json
-
+import numpy
 
 # def page_view(request):
 #
@@ -60,13 +61,24 @@ def on_submit(request):
         year_stop = request.POST['year_stop']
         locos = Locomotive.objects.filter(id__in=branches)
         data = {}
-        for loco in locos:
-            ml = Mileage.objects.filter(locomotive=loco).filter(year__range=(year_start, year_stop))
-            bn = "".join([sn[0] for sn in loco.branch.name.split('-')])
-            loco_str = "{1} ({0})".format(bn, loco.series)
-            data['years'] = [m.year for m in ml]
-            data[loco_str] = [m.value*loco.rate for m in ml]
-        # print(data)
+        if request.POST.get('summ'):
+            summ_data = []
+            years_list = []
+            for loco in locos:
+                ml2 = Mileage.objects.filter(locomotive=loco).filter(year__range=(year_start, year_stop))
+                summ_data.append([m.value*loco.rate for m in ml2])
+                years_list = [m.year for m in ml2]
+            n = numpy.sum(numpy.array(summ_data),0)
+            data['years'] = years_list
+            data['Сумма'] = list(n)
+        else:
+            for loco in locos:
+                ml = Mileage.objects.filter(locomotive=loco).filter(year__range=(year_start, year_stop))
+                bn = "".join([sn[0] for sn in loco.branch.name.split('-')])
+                loco_str = "{1} ({0})".format(bn, loco.series)
+                data['years'] = [m.year for m in ml]
+                data[loco_str] = [m.value * loco.rate for m in ml]
+        print(data)
         return HttpResponse(json.dumps(data), 'application/javascript')
 
 

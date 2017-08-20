@@ -57,17 +57,21 @@
                         {% csrf_token %}
                         <h4>Выберите период</h4>
                         <span>C</span>
-                        <select class="form-control select" name="year_start">
+                        <select class="form-control select start" name="year_start">
                             {% for year in years %}
                                 <option value="{{ year }}">{{ year }}</option>
                             {% endfor %}
                         </select><br>
                         <span>по</span>
-                        <select class="form-control select" name="year_stop">
+                        <select class="form-control select stop" name="year_stop">
                             {% for year in years %}
                                 <option value="{{ year }}">{{ year }}</option>
                             {% endfor %}
                         </select>
+                        <label>
+                            <input name="summ" type='checkbox' value='1'>
+                            Суммировать
+                        </label>
                         <h4>Выберите филиал и модель</h4>
                         <ul data-widget="tree">
                             {% for branch,locos in branches.items %}
