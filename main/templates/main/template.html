@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% block meta %}
+    {% endblock meta %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"/>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+
+    <script src="{% static 'main/script/adminlte.js' %}"></script>
+    <script src="{% static 'main/script/app.js' %}"></script>
+    <script src="{% static 'main/script/main.js' %}"></script>
+    <link href="{% static 'main/style/AdminLTE.css' %}" rel="stylesheet">
+    <link href="{% static 'main/style/main.css' %}" rel="stylesheet">
+
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+<header>
+</header>
+<main>
+    <div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <button>Submit</button>
+                <form action="{% url 'submit' %}" method="post">
+                    <div class="form-group">
+                        {% csrf_token %}
+                        <p>C: {{ form.year_start }} По: {{ form.year_stop }}</p>
+                        <div class="checkbox">
+                            {{ form.branch }}
+{#                            <ul data-widget="tree">#}
+{#                                {% for checkbox in form.branch %}#}
+{#                                    <li class="treeview">#}
+{#                                        <a href="#">Multilevel</a>#}
+{#                                        <ul class="treeview-menu">#}
+{#                                            <li>{{ checkbox }}</li>#}
+{#                                        </ul>#}
+{#                                    </li>#}
+{#                                    {{ checkbox.choi }}#}
+{#                                {% endfor %}#}
+{#                            </ul>#}
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-10">
+                <div class="chart-container">
+                    <canvas id="myChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+            <ul data-widget="tree">
+            <li class="treeview">
+                <a href="#">Multilevel</a>
+                <ul class="treeview-menu">
+                    <li>Level 2</li>
+                </ul>
+            </li>
+            </ul>
+{#            <div class="box">#}
+{#                <div class="box-header with-border">#}
+{#                    <h3 class="box-title">Default Box Example</h3>#}
+{#                    <div class="box-tools pull-right">#}
+{#                        <!-- Buttons, labels, and many other things can be placed here! -->#}
+{#                        <!-- Here is a label for example -->#}
+{#                        <span class="label label-primary">Label</span>#}
+{#                    </div>#}
+{#                    <!-- /.box-tools -->#}
+{#                </div>#}
+{#                <!-- /.box-header -->#}
+{#                <div class="box-body">#}
+{#                    The body of the box#}
+{#                </div>#}
+{#                <!-- /.box-body -->#}
+{#                <div class="box-footer">#}
+{#                    The footer of the box#}
+{#                </div>#}
+{#                <!-- box-footer -->#}
+{#            </div>#}
+        </div>
+    </div>
+        </div>
+</main>
+</body>
+</html>
